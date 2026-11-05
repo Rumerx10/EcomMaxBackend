@@ -1,0 +1,1444 @@
+{
+  "seller": {
+    "name": "NextPower",
+    "slug": "next-power",
+    "email": "support@nextpower.com.bd",
+    "phone": "+8809612345678",
+    "address": "House 42, Road 11, Banani, Dhaka 1213",
+    "supportHours": "Saturday to Thursday, 9:00 to 21:00",
+    "currency": "BDT",
+    "brandColor": "#1d4ed8",
+    "taxRate": 5,
+    "installationFee": 15000
+  },
+  "categories": [
+    {
+      "slug": "solar-panels",
+      "name": "Solar panels",
+      "description": "Lightweight, bifacial and balcony panels",
+      "sortOrder": 0
+    },
+    {
+      "slug": "inverters",
+      "name": "Inverters",
+      "description": "Grid-tied and micro inverters for every roof",
+      "sortOrder": 1
+    },
+    {
+      "slug": "hybrid-inverters",
+      "name": "Hybrid inverters",
+      "description": "Solar plus battery, with backup power",
+      "sortOrder": 2
+    },
+    {
+      "slug": "batteries",
+      "name": "Batteries",
+      "description": "Home storage from 5 kWh to all-in-one",
+      "sortOrder": 3
+    },
+    {
+      "slug": "commercial",
+      "name": "Business",
+      "description": "Commercial inverters and storage systems",
+      "sortOrder": 4
+    },
+    {
+      "slug": "ev-chargers",
+      "name": "EV chargers",
+      "description": "Charge your car on solar power",
+      "sortOrder": 5
+    },
+    {
+      "slug": "accessories",
+      "name": "Accessories",
+      "description": "Meters, controllers and monitoring",
+      "sortOrder": 6
+    }
+  ],
+  "products": [
+    {
+      "sku": "GALAXY-570",
+      "slug": "goodwe-galaxy-570w-ultra-lightweight-solar-panel",
+      "title": "GoodWe Galaxy 570W Ultra-lightweight Solar Panel",
+      "category": "solar-panels",
+      "brand": "GoodWe",
+      "description": "A frameless, ultra-lightweight solar panel for roofs that cannot carry heavy modules, such as metal factory roofs, sheds, pergolas and flat roofs. It installs quickly with clamps and resists strong wind and hail.",
+      "price": 19500,
+      "discountPercent": 8,
+      "stock": 240,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Ultra-lightweight, reduces load on the roof",
+        "Bezel-free surface sheds dust and rain",
+        "Strong wind and hail resistance",
+        "IP67 ingress protection"
+      ],
+      "specs": [
+        [
+          "Rated power",
+          "570 W"
+        ],
+        [
+          "Design",
+          "Frameless, ultra-lightweight"
+        ],
+        [
+          "Ingress protection",
+          "IP67"
+        ],
+        [
+          "Mounting",
+          "Clamp rail or railless clamps"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": true,
+      "trending": true,
+      "latest": false,
+      "images": [
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20260327/Galaxy570FrontBack.png",
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20260128/CIgalaxybannerpc.jpg"
+      ],
+      "options": []
+    },
+    {
+      "sku": "POLARIS",
+      "slug": "goodwe-polaris-waterproof-bifacial-solar-module",
+      "title": "GoodWe Polaris Waterproof Bifacial Solar Module",
+      "category": "solar-panels",
+      "brand": "GoodWe",
+      "description": "A structural, waterproof solar module that doubles as a roof for carports, sun sheds and flat-to-pitched roof conversions. Bifacial TOPCon cells collect light from both sides.",
+      "price": 24000,
+      "discountPercent": 0,
+      "stock": 120,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Structurally waterproof, works as the roof itself",
+        "High-efficiency bifacial TOPCon cells",
+        "2 + 2 mm laminated safety glass",
+        "Modular design, easy to replace"
+      ],
+      "specs": [
+        [
+          "Cell type",
+          "TOPCon, bifacial"
+        ],
+        [
+          "Glass",
+          "2 + 2 mm laminated safety glass (VSG)"
+        ],
+        [
+          "Applications",
+          "Carport, sun shed, flat-to-pitched roof"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": true,
+      "images": [
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20250923/9.22polaris.jpg",
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20250711/jiejuefangan11-916.jpg"
+      ],
+      "options": []
+    },
+    {
+      "sku": "SUNCAKE",
+      "slug": "goodwe-suncake-balcony-solar-kit",
+      "title": "GoodWe Suncake Balcony Solar Kit",
+      "category": "solar-panels",
+      "brand": "GoodWe",
+      "description": "A portable plug-and-play solar kit for balconies, terraces and courtyards. Lightweight panels and a 2-in-1 microinverter attach to a railing and plug into a socket, so you can start generating power in minutes.",
+      "price": 75000,
+      "discountPercent": 10,
+      "stock": 18,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "DIY setup in about five minutes",
+        "Lightweight panels with a 2-in-1 microinverter",
+        "Wi-Fi Mesh monitoring",
+        "Rapid shutdown for safety"
+      ],
+      "specs": [
+        [
+          "Type",
+          "Balcony plug-and-play kit"
+        ],
+        [
+          "Microinverter",
+          "GoodWe 2-in-1, dual MPPT"
+        ],
+        [
+          "Installation",
+          "Railing mount, no electrician needed"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": true,
+      "latest": false,
+      "images": [
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20250430/suncake.jpg",
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20250430/Balcony.jpg",
+        "https://en.pvbm.com/Public/Uploads/uploadfile/images/20250923/9.22suncake-447.jpg"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW3300-XS-30",
+      "slug": "goodwe-xs-g3-single-phase-inverter-3-3kw",
+      "title": "GoodWe XS G3 Single-phase Inverter 3.3kW",
+      "category": "inverters",
+      "brand": "GoodWe",
+      "description": "A light, compact and silent inverter for small home systems from 0.7 to 3.3 kW. It has no fan, supports up to 200% DC oversizing and reaches 97.6% peak efficiency.",
+      "price": 58000,
+      "discountPercent": 0,
+      "stock": 64,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "200% DC input oversizing",
+        "Fanless design for quiet operation",
+        "24/7 load consumption monitoring",
+        "Optional Type II SPD on DC and AC sides"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "0.7 – 3.3 kW"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "MPPTs",
+          "1"
+        ],
+        [
+          "Max. efficiency",
+          "97.6%"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": true,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240201/XS-G3-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240201/XS-G3-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240201/XS-G3-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240201/XS-G3-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW5K-DNS-G40",
+      "slug": "goodwe-dns-g4-single-phase-inverter-5kw",
+      "title": "GoodWe DNS G4 Single-phase Inverter 5kW",
+      "category": "inverters",
+      "brand": "GoodWe",
+      "description": "The fourth generation of GoodWe’s dual-MPPT home inverter, rated 3 to 6 kW. It is 31% lighter than before, accepts 20 A per string and has AI-driven arc fault protection.",
+      "price": 105000,
+      "discountPercent": 6,
+      "stock": 42,
+      "weight": 9.2,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "20 A per string and 200% PV oversizing",
+        "AI-driven AFCI 3.0 for safety",
+        "31% lighter, easier installation",
+        "Parallel with MS G4 via EzLink3000"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "3 – 6 kW"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "MPPTs / strings per MPPT",
+          "2 / 1"
+        ],
+        [
+          "Max. input voltage",
+          "600 V"
+        ],
+        [
+          "Max. input current per MPPT",
+          "20 A"
+        ],
+        [
+          "Nominal output voltage",
+          "220 / 230 / 240 V"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": true,
+      "trending": false,
+      "latest": true,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/DNSG4-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250609/DNSG4-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/DNSG4-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/DNSG4-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW10K-MS-G40",
+      "slug": "goodwe-ms-g4-single-phase-inverter-10kw",
+      "title": "GoodWe MS G4 Single-phase Inverter 10kW",
+      "category": "inverters",
+      "brand": "GoodWe",
+      "description": "A single-phase inverter for larger homes and small shops, rated 7.5 to 10 kW with up to 3 MPPTs. It runs below 30 dB, so it can be installed near living spaces.",
+      "price": 165000,
+      "discountPercent": 0,
+      "stock": 26,
+      "weight": 16,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "20 A per string and 200% PV oversizing",
+        "AI-driven AFCI 3.0 for safety",
+        "Quiet operation below 30 dB",
+        "Parallel with DNS G4 via EzLink3000"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "7.5 – 10 kW"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "MPPTs",
+          "2 / 3"
+        ],
+        [
+          "Max. input voltage",
+          "600 V"
+        ],
+        [
+          "Max. input current per MPPT",
+          "20 A"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/MSG4-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/MSG4-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/MSG4-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250523/MSG4-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW15K-SDT-30",
+      "slug": "goodwe-sdt-g3-three-phase-inverter-15kw",
+      "title": "GoodWe SDT G3 Three-phase Inverter 15kW",
+      "category": "inverters",
+      "brand": "GoodWe",
+      "description": "A compact three-phase inverter for bigger homes and small installations from 4 to 30 kW, with 22 A per string and round-the-clock load monitoring.",
+      "price": 210000,
+      "discountPercent": 0,
+      "stock": 19,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Max. 22 A DC input current per string",
+        "24/7 load consumption monitoring",
+        "Light and compact design",
+        "Optional Type II SPD on AC and DC sides"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "4 – 30 kW"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "MPPTs",
+          "2"
+        ],
+        [
+          "Max. input voltage",
+          "1100 V"
+        ],
+        [
+          "Max. input current per MPPT",
+          "22 A"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240422/(Venus)SDTG38-15kW-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240422/(Venus)SDTG38-15kW-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240422/(Venus)SDTG38-15kW-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240422/(Venus)SDTG38-15kW-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW2.5K-MIS-G20",
+      "slug": "goodwe-mis-g2-microinverter-2-5kw-4-in-1",
+      "title": "GoodWe MIS G2 Microinverter 2.5kW (4-in-1)",
+      "category": "inverters",
+      "brand": "GoodWe",
+      "description": "A 4-in-1 microinverter for homes and small businesses, rated 1600 to 2500 W. Each panel works on its own, so shade on one panel does not drag down the rest.",
+      "price": 68000,
+      "discountPercent": 5,
+      "stock": 4,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "12 V ultra-low startup voltage",
+        "Full power output up to 50 °C",
+        "Wi-Fi Mesh connects up to 25 units",
+        "Wireless zero export without a gateway"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "1600 – 2500 W"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "MPPTs",
+          "4"
+        ],
+        [
+          "Noise",
+          "Below 20 dB"
+        ]
+      ],
+      "warrantyInfo": "15-year GoodWe manufacturer warranty",
+      "popular": false,
+      "trending": false,
+      "latest": true,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260716/MISG2-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260716/MISG2-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260716/MISG2-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260716/MISG2-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW5000M-ES-20",
+      "slug": "goodwe-es-g2-hybrid-inverter-5kw",
+      "title": "GoodWe ES G2 Hybrid Inverter 5kW",
+      "category": "hybrid-inverters",
+      "brand": "GoodWe",
+      "description": "A single-phase hybrid inverter for low-voltage batteries, rated 3 to 6 kW. It stores daytime solar for the evening, so you use more of your own power and buy less from the grid.",
+      "price": 185000,
+      "discountPercent": 0,
+      "stock": 22,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "Plug and play with low-voltage batteries",
+        "Smart load control with dry contacts",
+        "Smart home integration",
+        "Optional DC arc fault protection"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "3 – 6 kW"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "MPPTs",
+          "2"
+        ],
+        [
+          "Battery type",
+          "Low voltage"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": true,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20220830/%E4%BA%A7%E5%93%81%E5%90%8D-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20220728/%E4%BA%A7%E5%93%81%E5%90%8D-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20220728/%E4%BA%A7%E5%93%81%E5%90%8D-31.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW6000N-EH",
+      "slug": "goodwe-eh-plus-hybrid-inverter-6kw",
+      "title": "GoodWe EH Plus+ Hybrid Inverter 6kW",
+      "category": "hybrid-inverters",
+      "brand": "GoodWe",
+      "description": "A battery-ready single-phase inverter for high-voltage batteries from 85 to 460 V. Start with solar only and add a battery later with an activation code. Switches to backup in under 10 ms.",
+      "price": 210000,
+      "discountPercent": 7,
+      "stock": 15,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "Battery ready, add storage later",
+        "UPS-level switching under 10 ms",
+        "150% DC oversizing",
+        "IP65, built-in Type II DC SPD"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "3.6 – 6 kW"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "MPPTs",
+          "2"
+        ],
+        [
+          "Battery voltage",
+          "85 – 460 V (high voltage)"
+        ],
+        [
+          "Backup switching",
+          "Under 10 ms"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230831/EH-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230831/EH-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230831/EH-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230831/EH-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW10K-ET-20",
+      "slug": "goodwe-et-g2-three-phase-hybrid-inverter-10kw",
+      "title": "GoodWe ET G2 Three-phase Hybrid Inverter 10kW",
+      "category": "hybrid-inverters",
+      "brand": "GoodWe",
+      "description": "A three-phase hybrid inverter rated 6 to 15 kW for high-voltage batteries. Up to four units can run in parallel, and it responds fast to sudden loads.",
+      "price": 295000,
+      "discountPercent": 0,
+      "stock": 11,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Up to 160% PV input oversizing",
+        "AI-driven AFCI 3.0",
+        "Integrated dry contact for external loads",
+        "Up to 4 units in parallel"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "6 – 15 kW"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "MPPTs",
+          "2 / 3"
+        ],
+        [
+          "Battery type",
+          "High voltage"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": true,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250529/ETG2-1.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "LXU 5.0-30",
+      "slug": "goodwe-lynx-u-g3-battery-5kwh",
+      "title": "GoodWe Lynx U G3 Battery 5kWh",
+      "category": "batteries",
+      "brand": "GoodWe",
+      "description": "A modular 5 kWh low-voltage LFP battery. Stack modules as your needs grow; up to 30 can run in parallel. A heating film keeps it working in the cold.",
+      "price": 145000,
+      "discountPercent": 5,
+      "stock": 30,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "LFP chemistry",
+        "Max. 90 A charging, 100 A discharging",
+        "Up to 30 units in parallel",
+        "Modular, simple installation"
+      ],
+      "specs": [
+        [
+          "Capacity",
+          "5 kWh per module"
+        ],
+        [
+          "Voltage class",
+          "Low voltage"
+        ],
+        [
+          "Chemistry",
+          "LFP"
+        ],
+        [
+          "Parallel",
+          "Up to 30 units"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": true,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20241213/20241213-111922.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW16.1-BAT-LV-G10",
+      "slug": "goodwe-lynx-a-g4-battery-16kwh",
+      "title": "GoodWe Lynx A G4 Battery 16kWh",
+      "category": "batteries",
+      "brand": "GoodWe",
+      "description": "A 16 kWh low-voltage battery built on 314 Ah cells rated for up to 10,000 cycles. IP65 and C5M protection let it live outdoors.",
+      "price": 420000,
+      "discountPercent": 0,
+      "stock": 9,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "314 Ah cells, up to 10,000 cycles",
+        "Cell-level heat isolation",
+        "Daisy-chain wiring, no busbar needed",
+        "IP65 and C5M protection"
+      ],
+      "specs": [
+        [
+          "Capacity",
+          "16 kWh"
+        ],
+        [
+          "Voltage class",
+          "Low voltage"
+        ],
+        [
+          "Cycle life",
+          "Up to 10,000 cycles"
+        ],
+        [
+          "Protection",
+          "IP65, C5M"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": true,
+      "latest": true,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260416/20260416-141311.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "LX D5.0-10",
+      "slug": "goodwe-lynx-d-high-voltage-battery-5kwh",
+      "title": "GoodWe Lynx D High-voltage Battery 5kWh",
+      "category": "batteries",
+      "brand": "GoodWe",
+      "description": "A 5 kWh high-voltage LFP battery for home self-consumption and backup, with 100% usable depth of discharge and IP66 protection for outdoor installation.",
+      "price": 175000,
+      "discountPercent": 0,
+      "stock": 3,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "100% depth of discharge",
+        "IP66 for outdoor installation",
+        "Remote diagnosis and updates",
+        "Auto reboot after undervoltage"
+      ],
+      "specs": [
+        [
+          "Capacity",
+          "5 kWh"
+        ],
+        [
+          "Voltage class",
+          "High voltage"
+        ],
+        [
+          "Chemistry",
+          "LFP"
+        ],
+        [
+          "Protection",
+          "IP66"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20241119/Lynx-D-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20241119/Lynx-D-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20241119/Lynx-D-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20241119/Lynx-D-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "LX F6.4-H-20",
+      "slug": "goodwe-lynx-f-g2-battery-tower",
+      "title": "GoodWe Lynx F G2 Battery Tower",
+      "category": "batteries",
+      "brand": "GoodWe",
+      "description": "A stackable high-voltage battery tower from 6.4 to 28.8 kWh. Add modules to grow capacity; up to 8 towers can run in parallel for 230 kWh.",
+      "price": 215000,
+      "discountPercent": 6,
+      "stock": 12,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Stackable modules, 6.4 – 28.8 kWh",
+        "Up to 8 towers in parallel (230 kWh)",
+        "Plug and play installation",
+        "IP55 protection"
+      ],
+      "specs": [
+        [
+          "Capacity",
+          "6.4 – 28.8 kWh per tower"
+        ],
+        [
+          "Voltage class",
+          "High voltage"
+        ],
+        [
+          "Chemistry",
+          "LFP"
+        ],
+        [
+          "Protection",
+          "IP55"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20231030/Lynx-F-G2.png"
+      ],
+      "options": [
+        {
+          "name": "Capacity",
+          "values": [
+            {
+              "label": "6.4 kWh",
+              "priceDelta": 0,
+              "swatch": null,
+              "imageUrl": null
+            },
+            {
+              "label": "9.6 kWh",
+              "priceDelta": 95000,
+              "swatch": null,
+              "imageUrl": null
+            },
+            {
+              "label": "12.8 kWh",
+              "priceDelta": 190000,
+              "swatch": null,
+              "imageUrl": null
+            },
+            {
+              "label": "16 kWh",
+              "priceDelta": 285000,
+              "swatch": null,
+              "imageUrl": null
+            },
+            {
+              "label": "19.2 kWh",
+              "priceDelta": 380000,
+              "swatch": null,
+              "imageUrl": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sku": "GW10K-EHA-G20",
+      "slug": "goodwe-esa-all-in-one-home-energy-storage-10kw",
+      "title": "GoodWe ESA All-in-One Home Energy Storage 10kW",
+      "category": "batteries",
+      "brand": "GoodWe",
+      "description": "Inverter and battery in one quiet cabinet for homes, rated 3 to 10 kW with 5 to 108 kWh of storage. Fanless, IP66, and able to run off-grid.",
+      "price": 720000,
+      "discountPercent": 9,
+      "stock": 6,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "1C charge and discharge",
+        "Fanless design for quiet operation",
+        "Dual output ports, off-grid capable",
+        "Heating mode down to −20 °C"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "3 – 10 kW"
+        ],
+        [
+          "Capacity",
+          "5 – 108 kWh"
+        ],
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "Protection",
+          "IP66"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": true,
+      "trending": false,
+      "latest": true,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251014/ESA3-10KAll-in-oneSystem-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251014/ESA3-10KAll-in-oneSystem-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251014/ESA3-10KAll-in-oneSystem-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251014/ESA3-10KAll-in-oneSystem-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW50K-SDT-C30",
+      "slug": "goodwe-sdt-g3-commercial-inverter-50kw",
+      "title": "GoodWe SDT G3 Commercial Inverter 50kW",
+      "category": "commercial",
+      "brand": "GoodWe",
+      "description": "A three-phase inverter for shops, offices and small factories, rated 30 to 50 kW with up to 4 MPPTs. Runs below 50 dB with IP66 protection.",
+      "price": 420000,
+      "discountPercent": 0,
+      "stock": 8,
+      "weight": null,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "Max. 21 A per string, 180% PV oversizing",
+        "AI-driven AFCI 3.0",
+        "Quiet operation under 50 dB",
+        "IP66, compact design"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "30 – 50 kW"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "MPPTs",
+          "2 – 4"
+        ],
+        [
+          "Protection",
+          "IP66"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250630/SDTG350kW-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250630/SDTG350kW-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250630/SDTG350kW-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250630/SDTG350kW-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW60K-SMT-L-G20",
+      "slug": "goodwe-smt-g2-commercial-inverter-60kw",
+      "title": "GoodWe SMT G2 Commercial Inverter 60kW",
+      "category": "commercial",
+      "brand": "GoodWe",
+      "description": "A three-phase commercial rooftop inverter rated 35 to 80 kW with up to 6 MPPTs and 98.4% peak efficiency, light enough at 42 kg for a two-person install.",
+      "price": 520000,
+      "discountPercent": 5,
+      "stock": 7,
+      "weight": 42,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "Up to 200% DC input oversizing",
+        "Up to 6 MPPTs",
+        "Lightweight 42 kg design",
+        "IP66 and remote data monitoring"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "35 – 80 kW"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "MPPTs",
+          "4 / 6"
+        ],
+        [
+          "Max. input voltage",
+          "900 V"
+        ],
+        [
+          "Max. efficiency",
+          "98.4%"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": true,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251103/SMTG260kW-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251103/SMTG260kW-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251103/SMTG260kW-31.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW125K-GT-L-G10",
+      "slug": "goodwe-gt-commercial-inverter-125kw",
+      "title": "GoodWe GT Commercial Inverter 125kW",
+      "category": "commercial",
+      "brand": "GoodWe",
+      "description": "A high-power three-phase inverter for factories and large rooftops, rated 100 to 125 kW with up to 10 MPPTs and 98.8% peak efficiency.",
+      "price": 980000,
+      "discountPercent": 0,
+      "stock": 4,
+      "weight": null,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "21 A DC input per string",
+        "Smart string-level disconnection",
+        "Supports aluminium cables up to 400 mm²",
+        "Self-cleaning smart fans"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "100 – 125 kW"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "MPPTs / strings per MPPT",
+          "10 / 2"
+        ],
+        [
+          "Max. input voltage",
+          "900 V"
+        ],
+        [
+          "Max. efficiency",
+          "98.8%"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251021/GT150kW-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251021/GT150kW-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251021/GT150kW-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20251021/GT150kW-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW50K-ET-10",
+      "slug": "goodwe-et-commercial-hybrid-inverter-50kw",
+      "title": "GoodWe ET Commercial Hybrid Inverter 50kW",
+      "category": "commercial",
+      "brand": "GoodWe",
+      "description": "A three-phase high-voltage hybrid inverter for businesses, rated 25 to 50 kW. Peak shaving trims demand charges, and units run in parallel both on and off grid.",
+      "price": 850000,
+      "discountPercent": 0,
+      "stock": 5,
+      "weight": null,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "Peak shaving to cut demand charges",
+        "Parallel on-grid and off-grid",
+        "110% unbalanced output",
+        "IP66 for outdoor installation"
+      ],
+      "specs": [
+        [
+          "Power range",
+          "25 – 50 kW"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "MPPTs",
+          "3 / 4"
+        ],
+        [
+          "Battery type",
+          "High voltage"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240823/ET-50kW-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240823/ET-50kW-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240823/ET-50kW-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240823/ET-50kW-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW125/261-ESA-LCN-G11",
+      "slug": "goodwe-esa-c-i-energy-storage-system-125kw-261kwh",
+      "title": "GoodWe ESA C&I Energy Storage System 125kW / 261kWh",
+      "category": "commercial",
+      "brand": "GoodWe",
+      "description": "An all-in-one outdoor storage cabinet for factories and commercial sites. Up to 20 units run in parallel for 2.5 MW / 5.22 MWh, with GoodWe’s own PCS, BMS and EMS.",
+      "price": 9800000,
+      "discountPercent": 0,
+      "stock": 2,
+      "weight": null,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "Up to 20 units in parallel (2.5 MW / 5.22 MWh)",
+        "Own PCS, BMS and EMS working together",
+        "AI-driven battery health prediction",
+        "Works with solar PV, IP54"
+      ],
+      "specs": [
+        [
+          "Power",
+          "125 kW"
+        ],
+        [
+          "Capacity",
+          "261 kWh"
+        ],
+        [
+          "Phase",
+          "Three phase"
+        ],
+        [
+          "Protection",
+          "IP54"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": true,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20250623/20250623-154051.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW261.2-BAT-LCD-G10",
+      "slug": "goodwe-bat-c-commercial-battery-system-261kwh",
+      "title": "GoodWe BAT-C Commercial Battery System 261kWh",
+      "category": "commercial",
+      "brand": "GoodWe",
+      "description": "A liquid-cooled commercial battery system from 208 to 261 kWh with 314 Ah cells rated for up to 10,000 cycles and three-hour fire resistance.",
+      "price": 6900000,
+      "discountPercent": 0,
+      "stock": 0,
+      "weight": null,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "Three-hour fire resistance",
+        "Liquid cooling for all climates",
+        "Flexible, scalable expansion",
+        "Long lifespan, high IP protection"
+      ],
+      "specs": [
+        [
+          "Capacity",
+          "208 – 261 kWh"
+        ],
+        [
+          "Cells",
+          "314 Ah"
+        ],
+        [
+          "Cycle life",
+          "Up to 10,000 cycles"
+        ],
+        [
+          "Cooling",
+          "Liquid"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260622/BAT-C261-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260622/BAT-C261-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260622/BAT-C261-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260622/BAT-C261-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GW7K-HCA-20",
+      "slug": "goodwe-hca-g2-smart-ev-charger-7kw",
+      "title": "GoodWe HCA G2 Smart EV Charger 7kW",
+      "category": "ev-chargers",
+      "brand": "GoodWe",
+      "description": "An AC charger that can run your electric car on surplus solar power. Single-phase 7 kW, with three-phase 11 and 22 kW versions for businesses.",
+      "price": 85000,
+      "discountPercent": 10,
+      "stock": 14,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Charges any EV brand",
+        "Dynamic load control",
+        "Remote control and monitoring",
+        "External emergency shutdown switch"
+      ],
+      "specs": [
+        [
+          "Output",
+          "7 kW single phase (11 / 22 kW three phase)"
+        ],
+        [
+          "Type",
+          "AC charger"
+        ],
+        [
+          "Compatibility",
+          "All EV brands"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": true,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20241206/20241206-151632.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "GMK330",
+      "slug": "goodwe-gmk330-smart-energy-meter",
+      "title": "GoodWe GMK330 Smart Energy Meter",
+      "category": "accessories",
+      "brand": "GoodWe",
+      "description": "A compact single-phase meter that tracks your home’s consumption in real time and lets the inverter limit how much power goes back to the grid.",
+      "price": 9500,
+      "discountPercent": 0,
+      "stock": 85,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "Accuracy class 0.5",
+        "Export limit and load monitoring",
+        "120 A CTs included",
+        "Wide input voltage range"
+      ],
+      "specs": [
+        [
+          "Phase",
+          "Single phase"
+        ],
+        [
+          "Accuracy",
+          "Class 0.5"
+        ],
+        [
+          "CTs",
+          "120 A, included"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240425/GMK330-1(2).png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240424/GMK330-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240424/GMK330-32.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240424/GMK330-33.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "SEC1000",
+      "slug": "goodwe-sec1000-smart-energy-controller",
+      "title": "GoodWe SEC1000 Smart Energy Controller",
+      "category": "accessories",
+      "brand": "GoodWe",
+      "description": "A plant controller that collects real-time data from GoodWe inverters and manages export power and reactive power. The SEC1000S version works with storage systems.",
+      "price": 38000,
+      "discountPercent": 0,
+      "stock": 20,
+      "weight": null,
+      "tags": [
+        "business"
+      ],
+      "highlights": [
+        "Real-time monitoring",
+        "Export power control",
+        "Reactive power compensation",
+        "For on-grid and storage systems"
+      ],
+      "specs": [
+        [
+          "Models",
+          "SEC1000 (on-grid), SEC1000S (storage)"
+        ],
+        [
+          "Functions",
+          "Export control, reactive power compensation"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230629/SEC-1000-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230629/SEC-1000-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230629/SEC-1000-32.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20230629/SEC-1000-33.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "Ezlink 3000",
+      "slug": "goodwe-ezlink3000-smart-dongle",
+      "title": "GoodWe EzLink3000 Smart Dongle",
+      "category": "accessories",
+      "brand": "GoodWe",
+      "description": "A small, low-power communication dongle that connects your inverter to the monitoring app and lets several inverters work together in parallel.",
+      "price": 6500,
+      "discountPercent": 0,
+      "stock": 120,
+      "weight": null,
+      "tags": [
+        "home",
+        "business"
+      ],
+      "highlights": [
+        "Compact, low power consumption",
+        "Easy installation",
+        "Enables inverter paralleling",
+        "Remote monitoring in the app"
+      ],
+      "specs": [
+        [
+          "Type",
+          "Communication dongle"
+        ],
+        [
+          "Use",
+          "Monitoring and inverter paralleling"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240410/Ezlink3000-1.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240410/Ezlink3000-2.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240410/Ezlink3000-31.png",
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20240410/Ezlink3000-32.png"
+      ],
+      "options": []
+    },
+    {
+      "sku": "WiFi Kit-20",
+      "slug": "goodwe-wi-fi-kit-20",
+      "title": "GoodWe Wi-Fi Kit-20",
+      "category": "accessories",
+      "brand": "GoodWe",
+      "description": "A plug-and-play Wi-Fi module that sends encrypted inverter data to the monitoring platform and supports remote firmware updates.",
+      "price": 4500,
+      "discountPercent": 0,
+      "stock": 150,
+      "weight": null,
+      "tags": [
+        "home"
+      ],
+      "highlights": [
+        "Encrypted data link",
+        "Resends data after a dropout",
+        "Remote firmware upgrade",
+        "Plug and play"
+      ],
+      "specs": [
+        [
+          "Type",
+          "Wi-Fi communication module"
+        ],
+        [
+          "Updates",
+          "Remote upgrade supported"
+        ]
+      ],
+      "warrantyInfo": "GoodWe manufacturer warranty, registered for you at installation",
+      "popular": false,
+      "trending": false,
+      "latest": false,
+      "images": [
+        "https://en.goodwe.com/Public/Uploads/uploadfile/images/20211227/64f17b603937f.png"
+      ],
+      "options": []
+    }
+  ],
+  "shippingRates": [
+    {
+      "name": "Standard delivery",
+      "price": 1500,
+      "estimate": "3 to 5 days",
+      "sortOrder": 0
+    },
+    {
+      "name": "Express delivery",
+      "price": 3500,
+      "estimate": "1 to 2 days",
+      "sortOrder": 1
+    },
+    {
+      "name": "Next-day delivery",
+      "price": 6000,
+      "estimate": "Next day, inside Dhaka",
+      "sortOrder": 2
+    }
+  ],
+  "coupons": [
+    {
+      "code": "SAVE10",
+      "description": "10% off your order",
+      "discountType": "PERCENTAGE",
+      "discountValue": 10,
+      "isPublic": true
+    }
+  ]
+}

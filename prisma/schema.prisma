@@ -1,0 +1,756 @@
+// Multi-tenant SaaS: one backend and one database serve many sellers. Each seller runs an
+// independent store with their own frontend, reached through a subdomain
+// (<slug>.<platform domain>) or a verified custom domain (SellerDomain). Inside a seller, users
+// have one of three roles: the OWNER (exactly one per seller), MANAGERs and CUSTOMERs.
+//
+// Tenancy rules:
+// - Every table except sellers has a sellerId column with a foreign key to sellers.
+// - A link between two seller-owned tables includes sellerId as well:
+//   (sellerId, productId) -> products(sellerId, id). Postgres then rejects a row that points
+//   at another seller's product, user, coupon or order.
+// - Every table has an index that starts with sellerId, so seller-filtered queries and the
+//   seller foreign key use it. A separate @@index([sellerId]) would only duplicate it.
+// - Deleting: the catalogue, users, carts and settings cascade with their seller. Sales
+//   history (orders, items, payments) is Restrict. A seller, user or product that has sales is
+//   suspended, deactivated or archived through its status instead of being deleted.
+// - Money is Decimal(12, 2) in the seller's currency. Orders copy titles, prices and the
+//   delivery address at checkout, so editing a product or address never changes a past order.
+//
+// Shopping without an account: every visitor gets a Cart and a Wishlist, found by a random
+// guestToken. Checkout (cash on delivery included) asks for name, phone, delivery address and
+// a password, and then does everything in one prisma.$transaction: creates the CUSTOMER user
+// (a phone that is already registered must give its password), saves the address, moves the
+// guest cart and wishlist to the user, takes stock with a conditional decrement
+// (stock >= quantity), counts the coupon use, takes the next OrderCounter number and creates
+// the order with its items, payment and first event. A new review updates Product.ratingAvg
+// and ratingCount in the same transaction.
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["partialIndexes"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum SellerStatus {
+  PENDING // signed up, store not live yet
+  ACTIVE
+  SUSPENDED // blocked by the platform, e.g. unpaid
+  CLOSED
+}
+
+enum Role {
+  OWNER // the seller
+  MANAGER
+  CUSTOMER
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT // hidden from the storefront
+  ARCHIVED // no longer sold, kept because orders refer to it
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  COD
+  CARD
+  BKASH
+  NAGAD
+  ROCKET
+  BANK_TRANSFER
+}
+
+enum MessageKind {
+  CONTACT // the contact page
+  FEEDBACK // a customer's feedback page
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+/// A tenant: one seller's independent store, with its business details and store settings.
+model Seller {
+  id                  String       @id @default(uuid(7)) @db.Uuid
+  name                String
+  slug                String       @unique // subdomain, e.g. "next-power" for next-power.<platform domain>
+  status              SellerStatus @default(PENDING)
+  email               String // store contact, stored lowercase
+  phone               String
+  address             String?
+  supportHours        String?
+  logoUrl             String?
+  brandColor          String? // "#1d4ed8": the store's own colour in the seller centre
+  taxId               String? // VAT registration (BIN), printed on invoices
+  invoiceNote         String? // printed at the foot of every invoice, e.g. warranty and returns
+  currency            String       @default("BDT") @db.Char(3)
+  taxRate             Decimal      @default(0) @db.Decimal(5, 2) // percent, 5.00 = 5% VAT
+  installationFee     Decimal?     @db.Decimal(12, 2) // null when the seller offers no installation
+  lowStockThreshold   Int          @default(5)
+  notifyNewOrder      Boolean      @default(true)
+  notifyLowStock      Boolean      @default(true)
+  notifyWeeklySummary Boolean      @default(false)
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+
+  domains        SellerDomain[]
+  orderCounter   OrderCounter?
+  homePage       HomePage?
+  users          User[]
+  sessions       Session[]
+  categories     Category[]
+  products       Product[]
+  productImages  ProductImage[]
+  options        ProductOption[]
+  optionValues   ProductOptionValue[]
+  addresses      Address[]
+  carts          Cart[]
+  cartItems      CartItem[]
+  wishlists      Wishlist[]
+  wishlistItems  WishlistItem[]
+  reviews        Review[]
+  reviewComments ReviewComment[]
+  uploads        Upload[]
+  coupons        Coupon[]
+  shippingRates  ShippingRate[]
+  orders         Order[]
+  orderItems     OrderItem[]
+  payments       Payment[]
+  orderEvents    OrderEvent[]
+  storeMessages  StoreMessage[]
+  conversations  Conversation[]
+  chatMessages   ChatMessage[]
+
+  @@map("sellers")
+}
+
+/// A custom domain for a seller's store. The platform subdomain needs no row.
+model SellerDomain {
+  id                String    @id @default(uuid(7)) @db.Uuid
+  sellerId          String    @db.Uuid
+  hostname          String    @unique // lowercase, no port, e.g. "shop.nextpower.com.bd"
+  isPrimary         Boolean   @default(false) // the address the store links to
+  verificationToken String // the seller publishes it in a DNS TXT record
+  verifiedAt        DateTime? // requests from the domain are served only once it is verified
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@unique([sellerId], map: "seller_domains_one_primary", where: { isPrimary: true })
+  @@index([sellerId])
+  @@map("seller_domains")
+}
+
+/// The last order number a seller used. It lives apart from sellers so that taking a number
+/// locks only this small row: take it with one atomic increment late in the checkout
+/// transaction.
+/// The shop's home page, edited in the seller centre: the hero and the ordered sections, as
+/// validated JSON (src/modules/home-page/dto). No row means the store still shows the default.
+model HomePage {
+  sellerId  String   @id @db.Uuid
+  content   Json
+  updatedAt DateTime @updatedAt
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@map("home_pages")
+}
+
+model OrderCounter {
+  sellerId   String @id @db.Uuid
+  lastNumber Int    @default(1000)
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@map("order_counters")
+}
+
+/// Everyone who signs in to a seller's store: its owner, managers and customers. Accounts are
+/// per seller, so one person can have an account at two stores. Customers are created at
+/// checkout from the name, phone and password they enter.
+model User {
+  id           String    @id @default(uuid(7)) @db.Uuid
+  sellerId     String    @db.Uuid
+  role         Role      @default(CUSTOMER)
+  name         String
+  phone        String // signs in with this, stored as +8801XXXXXXXXX
+  username     String? // optional second sign-in name, lowercase; mostly for staff
+  email        String? // stored lowercase
+  passwordHash String // argon2id
+  avatarUrl    String?
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  seller       Seller          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  sessions     Session[]
+  addresses    Address[]
+  cart         Cart?
+  wishlist     Wishlist?
+  reviews      Review[]
+  comments     ReviewComment[]
+  orders       Order[]
+  messages     StoreMessage[]
+  conversation Conversation?
+  chatMessages ChatMessage[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, phone])
+  @@unique([sellerId, username])
+  @@unique([sellerId, email])
+  @@unique([sellerId], map: "users_one_owner_per_seller", where: { role: "OWNER" })
+  @@index([sellerId, role, createdAt])
+  @@map("users")
+}
+
+/// A signed-in device. The refresh token is stored only as a hash; signing out sets revokedAt.
+model Session {
+  id        String    @id @default(uuid(7)) @db.Uuid
+  sellerId  String    @db.Uuid
+  userId    String    @db.Uuid
+  tokenHash String    @unique // SHA-256 of the refresh token
+  userAgent String?
+  ipAddress String?
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+
+  @@index([sellerId, userId])
+  @@index([expiresAt]) // for the job that deletes expired sessions
+  @@map("sessions")
+}
+
+model Category {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  sellerId    String   @db.Uuid
+  parentId    String?  @db.Uuid
+  name        String
+  slug        String // the ?category= value, e.g. "solar-panels"
+  description String?
+  imageUrl    String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  seller   Seller     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  parent   Category?  @relation("CategoryTree", fields: [sellerId, parentId], references: [sellerId, id], onDelete: Restrict)
+  children Category[] @relation("CategoryTree")
+  products Product[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, slug])
+  @@index([sellerId, parentId])
+  @@map("categories")
+}
+
+model Product {
+  id              String        @id @default(uuid(7)) @db.Uuid
+  sellerId        String        @db.Uuid
+  categoryId      String        @db.Uuid
+  title           String
+  slug            String
+  description     String? // HTML from the rich text editor, sanitised before rendering
+  brand           String?
+  sku             String
+  barcode         String?
+  price           Decimal       @db.Decimal(12, 2)
+  discountPercent Decimal       @default(0) @db.Decimal(5, 2)
+  costPrice       Decimal?      @db.Decimal(12, 2) // what one unit costs the seller, admin only
+  stock           Int           @default(0)
+  weight          Decimal?      @db.Decimal(10, 3) // kg
+  status          ProductStatus @default(ACTIVE)
+  tags            String[]      @default([]) // e.g. "home", "business"
+  highlights      String[]      @default([])
+  specs           Json          @default("[]") // [label, value] pairs
+  warrantyInfo    String?
+  popular         Boolean       @default(false)
+  trending        Boolean       @default(false)
+  latest          Boolean       @default(false)
+  ratingAvg       Decimal       @default(0) @db.Decimal(3, 2)
+  ratingCount     Int           @default(0)
+  soldCount       Int           @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  seller        Seller          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  category      Category        @relation(fields: [sellerId, categoryId], references: [sellerId, id], onDelete: Restrict)
+  images        ProductImage[]
+  options       ProductOption[]
+  cartItems     CartItem[]
+  wishlistItems WishlistItem[]
+  reviews       Review[]
+  orderItems    OrderItem[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, sku])
+  @@unique([sellerId, slug])
+  @@index([sellerId, status, createdAt])
+  @@index([sellerId, categoryId, status])
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  sellerId  String   @db.Uuid
+  productId String   @db.Uuid
+  url       String
+  alt       String?
+  position  Int      @default(0) // 0 is the thumbnail
+  createdAt DateTime @default(now())
+
+  seller  Seller  @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [sellerId, productId], references: [sellerId, id], onDelete: Cascade)
+
+  @@index([sellerId, productId, position])
+  @@map("product_images")
+}
+
+/// A choice the buyer makes on the product page, e.g. Capacity or Color.
+model ProductOption {
+  id        String @id @default(uuid(7)) @db.Uuid
+  sellerId  String @db.Uuid
+  productId String @db.Uuid
+  name      String
+  position  Int    @default(0)
+
+  seller  Seller               @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  product Product              @relation(fields: [sellerId, productId], references: [sellerId, id], onDelete: Cascade)
+  values  ProductOptionValue[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, productId, name])
+  @@map("product_options")
+}
+
+model ProductOptionValue {
+  id         String  @id @default(uuid(7)) @db.Uuid
+  sellerId   String  @db.Uuid
+  optionId   String  @db.Uuid
+  label      String
+  priceDelta Decimal @default(0) @db.Decimal(12, 2) // added to the product price
+  swatch     String? // hex colour, Color options only
+  imageUrl   String? // product image to show when this value is chosen
+  position   Int     @default(0)
+
+  seller Seller        @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  option ProductOption @relation(fields: [sellerId, optionId], references: [sellerId, id], onDelete: Cascade)
+
+  @@unique([sellerId, optionId, label])
+  @@map("product_option_values")
+}
+
+/// A saved delivery address in Bangladesh.
+model Address {
+  id            String   @id @default(uuid(7)) @db.Uuid
+  sellerId      String   @db.Uuid
+  userId        String   @db.Uuid
+  label         String? // Home, Office
+  name          String // who receives the parcel
+  phone         String
+  district      String
+  thana         String // thana or upazila
+  villageOrWard String // village, union or city ward
+  addressLine   String? // house, road, area or a landmark
+  postCode      String?
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+
+  @@unique([sellerId, userId], map: "addresses_one_default_per_user", where: { isDefault: true })
+  @@index([sellerId, userId])
+  @@map("addresses")
+}
+
+/// A visitor's cart. Visitors who haven't signed in are found by guestToken; checkout or
+/// sign-in moves the cart to the user.
+model Cart {
+  id         String   @id @default(uuid(7)) @db.Uuid
+  sellerId   String   @db.Uuid
+  userId     String?  @db.Uuid // null until the visitor signs in or checks out
+  guestToken String? // random value the API gives the visitor, null once the cart has a user
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  seller Seller     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  user   User?      @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+  items  CartItem[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, userId]) // one cart per user
+  @@unique([sellerId, guestToken])
+  @@index([sellerId, updatedAt]) // to clear out abandoned guest carts
+  @@map("carts")
+}
+
+model CartItem {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  sellerId  String   @db.Uuid
+  cartId    String   @db.Uuid
+  productId String   @db.Uuid
+  variant   String   @default("") // chosen options, e.g. "Capacity: 9.6 kWh / Color: Black"
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  seller  Seller  @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  cart    Cart    @relation(fields: [sellerId, cartId], references: [sellerId, id], onDelete: Cascade)
+  product Product @relation(fields: [sellerId, productId], references: [sellerId, id], onDelete: Cascade)
+
+  @@unique([sellerId, cartId, productId, variant])
+  @@index([sellerId, productId])
+  @@map("cart_items")
+}
+
+/// A visitor's wishlist, found the same way as their Cart.
+model Wishlist {
+  id         String   @id @default(uuid(7)) @db.Uuid
+  sellerId   String   @db.Uuid
+  userId     String?  @db.Uuid
+  guestToken String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  seller Seller         @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  user   User?          @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+  items  WishlistItem[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, userId])
+  @@unique([sellerId, guestToken])
+  @@index([sellerId, updatedAt])
+  @@map("wishlists")
+}
+
+model WishlistItem {
+  sellerId   String   @db.Uuid
+  wishlistId String   @db.Uuid
+  productId  String   @db.Uuid
+  createdAt  DateTime @default(now())
+
+  seller   Seller   @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  wishlist Wishlist @relation(fields: [sellerId, wishlistId], references: [sellerId, id], onDelete: Cascade)
+  product  Product  @relation(fields: [sellerId, productId], references: [sellerId, id], onDelete: Cascade)
+
+  @@id([sellerId, wishlistId, productId])
+  @@index([sellerId, productId])
+  @@map("wishlist_items")
+}
+
+model Review {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  sellerId    String   @db.Uuid
+  productId   String   @db.Uuid
+  userId      String   @db.Uuid
+  rating      Int // 1 to 5, validated in the DTO
+  title       String?
+  comment     String
+  images      String[] @default([]) // at most 4 image URLs, checked in the DTO
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  seller   Seller          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  product  Product         @relation(fields: [sellerId, productId], references: [sellerId, id], onDelete: Cascade)
+  user     User            @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+  comments ReviewComment[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, userId, productId]) // one review per product per user
+  @@index([sellerId, productId, createdAt])
+  @@map("reviews")
+}
+
+/// Comments on a review, Facebook style: a comment on the review, or a reply to a comment.
+/// Replies are one level deep; replying to a reply attaches to the same top comment.
+model ReviewComment {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  sellerId  String   @db.Uuid
+  reviewId  String   @db.Uuid
+  userId    String   @db.Uuid
+  parentId  String?  @db.Uuid // null for a comment on the review itself
+  body      String
+  isHidden  Boolean  @default(false) // hidden by staff
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  seller  Seller          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  review  Review          @relation(fields: [sellerId, reviewId], references: [sellerId, id], onDelete: Cascade)
+  user    User            @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+  parent  ReviewComment?  @relation("CommentReplies", fields: [sellerId, parentId], references: [sellerId, id], onDelete: Cascade)
+  replies ReviewComment[] @relation("CommentReplies")
+
+  @@unique([sellerId, id])
+  @@index([sellerId, reviewId, createdAt])
+  @@index([sellerId, parentId, createdAt])
+  @@map("review_comments")
+}
+
+/// An uploaded image (review photos, product images), kept in the database until there is
+/// object storage. Served publicly at /api/v1/uploads/:id.
+model Upload {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  sellerId    String   @db.Uuid
+  contentType String // image/jpeg, image/png or image/webp
+  size        Int
+  data        Bytes
+  createdAt   DateTime @default(now())
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@index([sellerId, createdAt])
+  @@map("uploads")
+}
+
+model Coupon {
+  id                String       @id @default(uuid(7)) @db.Uuid
+  sellerId          String       @db.Uuid
+  code              String // stored uppercase, e.g. SAVE10
+  description       String?
+  discountType      DiscountType @default(PERCENTAGE)
+  discountValue     Decimal      @db.Decimal(12, 2) // percent or amount, depending on discountType
+  minOrderAmount    Decimal?     @db.Decimal(12, 2)
+  maxDiscountAmount Decimal?     @db.Decimal(12, 2) // cap for percentage coupons
+  usageLimit        Int? // null means unlimited
+  usedCount         Int          @default(0) // incremented in the checkout transaction
+  startsAt          DateTime?
+  endsAt            DateTime?
+  isActive          Boolean      @default(true)
+  isPublic          Boolean      @default(false) // listed on the store's coupons page
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  seller Seller  @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  orders Order[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, code])
+  @@map("coupons")
+}
+
+/// Delivery options offered at checkout, e.g. inside or outside Dhaka.
+model ShippingRate {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  sellerId    String   @db.Uuid
+  name        String
+  description String?
+  price       Decimal  @db.Decimal(12, 2)
+  estimate    String? // e.g. "3 to 5 days"
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@unique([sellerId, name])
+  @@map("shipping_rates")
+}
+
+model Order {
+  id                String        @id @default(uuid(7)) @db.Uuid
+  sellerId          String        @db.Uuid
+  orderNumber       Int // per seller, taken from OrderCounter
+  userId            String        @db.Uuid // the customer, created at checkout if they had no account
+  couponId          String?       @db.Uuid
+  idempotencyKey    String? // sent by the frontend with checkout, so a double submit can't create two orders
+  status            OrderStatus   @default(PENDING)
+  paymentMethod     PaymentMethod @default(COD)
+  paymentStatus     PaymentStatus @default(PENDING) // status of the latest payment, kept here for list filters
+  currency          String        @default("BDT") @db.Char(3)
+  subtotal          Decimal       @db.Decimal(12, 2)
+  discountAmount    Decimal       @default(0) @db.Decimal(12, 2)
+  shippingAmount    Decimal       @default(0) @db.Decimal(12, 2)
+  installationFee   Decimal       @default(0) @db.Decimal(12, 2)
+  taxAmount         Decimal       @default(0) @db.Decimal(12, 2)
+  totalAmount       Decimal       @db.Decimal(12, 2)
+  couponCode        String?
+  shippingMethod    String // ShippingRate name at checkout
+  note              String? // special instructions from the buyer
+  // Delivery details as they were entered at checkout
+  shipName          String
+  shipPhone         String
+  shipDistrict      String
+  shipThana         String
+  shipVillageOrWard String
+  shipAddressLine   String?
+  shipPostCode      String?
+  cancelReason      String?
+  cancelledAt       DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  seller   Seller       @relation(fields: [sellerId], references: [id], onDelete: Restrict)
+  user     User         @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Restrict)
+  coupon   Coupon?      @relation(fields: [sellerId, couponId], references: [sellerId, id], onDelete: Restrict)
+  items    OrderItem[]
+  payments Payment[]
+  events   OrderEvent[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, orderNumber])
+  @@unique([sellerId, idempotencyKey])
+  @@index([sellerId, createdAt])
+  @@index([sellerId, status, createdAt])
+  @@index([sellerId, userId, createdAt])
+  @@index([sellerId, couponId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id         String   @id @default(uuid(7)) @db.Uuid
+  sellerId   String   @db.Uuid
+  orderId    String   @db.Uuid
+  productId  String   @db.Uuid
+  title      String // copied from the product at checkout, like sku, variant and imageUrl
+  sku        String
+  variant    String?
+  imageUrl   String?
+  unitPrice  Decimal  @db.Decimal(12, 2) // price paid for one unit, options included
+  unitCost   Decimal? @db.Decimal(12, 2) // Product.costPrice at checkout, for profit reports
+  quantity   Int
+  totalPrice Decimal  @db.Decimal(12, 2) // unitPrice x quantity
+  createdAt  DateTime @default(now())
+
+  seller  Seller  @relation(fields: [sellerId], references: [id], onDelete: Restrict)
+  order   Order   @relation(fields: [sellerId, orderId], references: [sellerId, id], onDelete: Cascade)
+  product Product @relation(fields: [sellerId, productId], references: [sellerId, id], onDelete: Restrict)
+
+  @@index([sellerId, orderId])
+  @@index([sellerId, productId])
+  @@map("order_items")
+}
+
+/// One row per payment attempt or refund.
+model Payment {
+  id            String        @id @default(uuid(7)) @db.Uuid
+  sellerId      String        @db.Uuid
+  orderId       String        @db.Uuid
+  method        PaymentMethod
+  status        PaymentStatus @default(PENDING)
+  amount        Decimal       @db.Decimal(12, 2)
+  currency      String        @default("BDT") @db.Char(3)
+  transactionId String? // gateway reference, e.g. the bKash trxID
+  failureReason String?
+  paidAt        DateTime?
+  refundedAt    DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Restrict)
+  order  Order  @relation(fields: [sellerId, orderId], references: [sellerId, id], onDelete: Restrict)
+
+  @@unique([method, transactionId]) // a repeated gateway callback can't record the payment twice
+  @@index([sellerId, orderId])
+  @@index([sellerId, status, createdAt])
+  @@map("payments")
+}
+
+/// The order timeline: status changes and notes.
+model OrderEvent {
+  id        String       @id @default(uuid(7)) @db.Uuid
+  sellerId  String       @db.Uuid
+  orderId   String       @db.Uuid
+  status    OrderStatus? // set when the event moved the order to a new status
+  title     String
+  note      String?
+  createdAt DateTime     @default(now())
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Restrict)
+  order  Order  @relation(fields: [sellerId, orderId], references: [sellerId, id], onDelete: Cascade)
+
+  @@index([sellerId, orderId, createdAt])
+  @@map("order_events")
+}
+
+// A message to the store from the contact page or a customer's feedback page. Staff read
+// them in the seller centre.
+model StoreMessage {
+  id         String      @id @default(uuid(7)) @db.Uuid
+  sellerId   String      @db.Uuid
+  userId     String?     @db.Uuid // set when the sender was signed in
+  kind       MessageKind
+  topic      String? // feedback only: general, bug, feature or complaint
+  name       String
+  email      String? // stored lowercase
+  phone      String?
+  subject    String?
+  body       String
+  wantsReply Boolean     @default(false)
+  isRead     Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  user   User?  @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+
+  @@index([sellerId, createdAt])
+  @@index([sellerId, isRead, createdAt])
+  @@map("store_messages")
+}
+
+// A customer's chat with the store: one conversation per customer, messages both ways. The
+// unread counters and the last message are kept here so the inbox needs no counting.
+model Conversation {
+  id             String   @id @default(uuid(7)) @db.Uuid
+  sellerId       String   @db.Uuid
+  userId         String   @db.Uuid // the customer
+  lastMessage    String   @default("")
+  lastMessageAt  DateTime @default(now())
+  customerUnread Int      @default(0) // store replies the customer hasn't read
+  storeUnread    Int      @default(0) // customer messages staff haven't read
+  createdAt      DateTime @default(now())
+
+  seller   Seller        @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  user     User          @relation(fields: [sellerId, userId], references: [sellerId, id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@unique([sellerId, id])
+  @@unique([sellerId, userId])
+  @@index([sellerId, lastMessageAt])
+  @@map("conversations")
+}
+
+model ChatMessage {
+  id             String   @id @default(uuid(7)) @db.Uuid
+  sellerId       String   @db.Uuid
+  conversationId String   @db.Uuid
+  senderId       String   @db.Uuid
+  fromStore      Boolean // written by staff
+  body           String
+  createdAt      DateTime @default(now())
+
+  seller       Seller       @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [sellerId, conversationId], references: [sellerId, id], onDelete: Cascade)
+  sender       User         @relation(fields: [sellerId, senderId], references: [sellerId, id], onDelete: Cascade)
+
+  @@index([sellerId, conversationId, createdAt])
+  @@map("chat_messages")
+}

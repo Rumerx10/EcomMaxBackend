@@ -1,0 +1,167 @@
+{
+  "hero": {
+    "badge": "Official GoodWe range, delivered and installed",
+    "title": "Power your home with",
+    "highlight": "the sun.",
+    "subtitle": "Panels, inverters and batteries sized to your bill, with backup power when the grid goes down.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=2000&q=80&auto=format&fit=crop",
+      "alt": "Rows of solar panels under a bright blue sky"
+    },
+    "primary": { "label": "Shop solar", "href": "/products" },
+    "secondary": { "label": "Free system design", "href": "/chat" },
+    "showProduct": true,
+    "featuredProductId": "{product:goodwe-esa-all-in-one-home-energy-storage-10kw}",
+    "showCoupon": true
+  },
+  "sections": [
+    {
+      "id": "features",
+      "type": "features",
+      "visible": true,
+      "items": [
+        { "icon": "wrench", "title": "Installed for you", "text": "Certified team, from survey to switch-on" },
+        { "icon": "banknote", "title": "Pay on delivery", "text": "Pay in cash when your order arrives" },
+        { "icon": "truck", "title": "Delivered nationwide", "text": "Panels and batteries packed for the road" },
+        { "icon": "headphones", "title": "Free system design", "text": "Tell us your bill, we size the system" }
+      ]
+    },
+    { "id": "categories", "type": "categories", "visible": true, "title": "Shop by category" },
+    {
+      "id": "solutions",
+      "type": "promoCards",
+      "visible": true,
+      "title": "Solutions for homes and businesses",
+      "cards": [
+        {
+          "title": "Solar for your home",
+          "text": "Cut your electricity bill and keep the lights on during load shedding with panels, a hybrid inverter and battery backup.",
+          "points": ["Sized to your monthly bill", "Backup during power cuts", "Track every unit in the app"],
+          "image": {
+            "url": "https://images.unsplash.com/photo-1624397640148-949b1732bb0a?w=1600&q=80&auto=format&fit=crop",
+            "alt": "Installer fitting a solar panel on a house roof"
+          },
+          "link": { "label": "Shop home solar", "href": "/products?searchTerm=home" }
+        },
+        {
+          "title": "Solar for your business",
+          "text": "Lower daytime power costs for shops, offices and factories with commercial inverters and storage that trims peak demand.",
+          "points": ["Inverters from 30 to 125 kW", "Storage up to 261 kWh per cabinet", "Peak shaving cuts demand charges"],
+          "image": {
+            "url": "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1600&q=80&auto=format&fit=crop",
+            "alt": "Solar panels covering a factory roof at sunset"
+          },
+          "link": { "label": "Shop business solar", "href": "/products?searchTerm=business" }
+        }
+      ]
+    },
+    {
+      "id": "popular",
+      "type": "products",
+      "visible": true,
+      "title": "Popular right now",
+      "subtitle": "The panels, inverters and batteries our customers choose most.",
+      "source": "popular",
+      "limit": 8
+    },
+    {
+      "id": "goodwe-banners",
+      "type": "banners",
+      "visible": true,
+      "title": "Featured GoodWe systems",
+      "slides": [
+        {
+          "image": "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260312/banner4_2560-1266Web.jpg",
+          "mobileImage": "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260312/Banner4_768x800_Web.jpg",
+          "alt": "GoodWe ESA All-in-One home energy storage",
+          "href": "/products/{product:goodwe-esa-all-in-one-home-energy-storage-10kw}"
+        },
+        {
+          "image": "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260120/Banner3_1920x950_Web_1.jpg",
+          "mobileImage": "https://en.goodwe.com/Public/Uploads/uploadfile/images/20260120/Banner3_768x800_Web_1.jpg",
+          "alt": "GoodWe ESA commercial energy storage, 125 kW / 261 kWh",
+          "href": "/products/{product:goodwe-esa-c-i-energy-storage-system-125kw-261kwh}"
+        }
+      ],
+      "autoplaySeconds": 6
+    },
+    {
+      "id": "deals",
+      "type": "products",
+      "visible": true,
+      "title": "Biggest discounts",
+      "subtitle": "Marked down from the regular price, while stock lasts.",
+      "source": "deals",
+      "limit": 4
+    },
+    {
+      "id": "business",
+      "type": "products",
+      "visible": true,
+      "title": "For business",
+      "subtitle": "Commercial inverters, storage cabinets and controllers for shops, offices and factories.",
+      "source": "category",
+      "categorySlug": "commercial",
+      "limit": 4
+    },
+    {
+      "id": "system-videos",
+      "type": "videos",
+      "visible": true,
+      "title": "How a solar system works",
+      "subtitle": "Everything in a GoodWe system talks to everything else, from the panels to the battery to the app on your phone.",
+      "videos": [
+        {
+          "title": "Home energy storage",
+          "text": "Panels charge the battery by day, the hybrid inverter powers the house at night and during outages.",
+          "videoUrl": "https://en.goodwe.com/Public/Uploads/uploadfile/files/20250226/home01_x2641.mp4",
+          "poster": "https://en.goodwe.com/Public/Uploads/uploadfile/images/20220217/home01.jpg"
+        },
+        {
+          "title": "Commercial and industrial",
+          "text": "Rooftop arrays and storage cabinets work together to cover daytime load and shave expensive peaks.",
+          "videoUrl": "https://en.goodwe.com/Public/Uploads/uploadfile/files/20250226/home02_x264.mp4",
+          "poster": "https://en.goodwe.com/Public/Uploads/uploadfile/images/20220217/home02.jpg"
+        }
+      ],
+      "image": {
+        "url": "https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=1200&q=80&auto=format&fit=crop",
+        "alt": "Two installers connecting the wiring under a solar panel"
+      },
+      "points": [
+        { "icon": "wrench", "title": "Certified installers", "text": "Site survey, wiring and handover by our own team." },
+        { "icon": "smartphone", "title": "Live monitoring", "text": "See generation and battery level in the GoodWe app." },
+        { "icon": "shield", "title": "Warranty handled", "text": "We register every product with GoodWe for you." }
+      ]
+    },
+    {
+      "id": "latest",
+      "type": "products",
+      "visible": true,
+      "title": "New arrivals",
+      "subtitle": "The latest GoodWe models in the store.",
+      "source": "latest",
+      "limit": 4
+    },
+    {
+      "id": "how-it-works",
+      "type": "steps",
+      "visible": true,
+      "title": "How going solar works",
+      "subtitle": "From your electricity bill to a working system in four steps.",
+      "steps": [
+        { "icon": "clipboard", "title": "Share your bill", "text": "Send us your monthly electricity bill and roof photos in chat." },
+        { "icon": "zap", "title": "Get a design", "text": "We size the panels, inverter and battery and send a fixed quote." },
+        { "icon": "wrench", "title": "We install it", "text": "Delivery, mounting, wiring and grid connection by our certified team." },
+        { "icon": "smartphone", "title": "Watch it work", "text": "Follow generation, savings and battery level in the GoodWe app." }
+      ]
+    },
+    {
+      "id": "help",
+      "type": "help",
+      "visible": true,
+      "title": "Not sure what to pick?",
+      "text": "Our team answers product questions and order queries."
+    }
+  ]
+}
